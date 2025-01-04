@@ -1,10 +1,10 @@
-browser.runtime.onInstalled.addListener(() => {
+function createContextMenu() {
     browser.contextMenus.create({
         id: "search-google-lens",
         title: "Search Image with Google Lens",
         contexts: ["image"],
     });
-});
+}
 
 // Handle the click event on the context menu
 browser.contextMenus.onClicked.addListener((info, tab) => {
@@ -14,3 +14,7 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
         browser.tabs.create({ url: googleLensUrl });
     }
 });
+
+// Register the context menu on startup
+browser.runtime.onInstalled.addListener(createContextMenu);
+browser.runtime.onStartup.addListener(createContextMenu);
